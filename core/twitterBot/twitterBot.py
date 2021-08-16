@@ -5,14 +5,35 @@ class TwitterBot(BotDirectory):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__tweets: dict = {}
+        self.__trends: dict = {}
 
     @property
     def tweets(self):
         return self.__tweets
+
+    @property
+    def trends(self):
+        return self.__trends
         
     def getUserId(self, user: str) -> str:
         """function to get user id"""
         return self.client.get_user(user).id_str
+
+    def getAvailableTrendLocations(self):
+        """function to get all locations where trending information is available"""
+        self.trendLocations: dict = self.client.trends_available()
+
+    def getLocationTrends(self, woeid: int, name: str):
+        """function to get trending hashtags for a given location"""
+        self.trends[name]: list = self.client.trends_place(id=woeid)
+
+    def searchPopularTweets(self, query: str):
+        pass
+        # search popular tweets to find seed material for 
+        # the ai to generate from. 
+        # Make a combination of the hashtags, and names to programmatically inject
+        # this should happen in text after finding tweets
+        
 
     def readTweet(self, user: str, most_recent: bool = False):
         """function to recieve tweets from user"""
