@@ -1,3 +1,4 @@
+#!/usr/bin/python
 """
 Twitter Ritual -
 SHORT DESCRIPTION:
@@ -5,11 +6,15 @@ SHORT DESCRIPTION:
     between four Twitter Bots. Each of these bots are owned by myself.
     Each bot has a role in the process and the art is a result of their
     automated interaction. The automation handles a degress of randomness.
-    The automation includes a mixuture of AI generative content. 
+    The automation includes a mixuture of AI generative content and rule based
+    manipulation. 
 """
 # built in imports
+import io
 import os
 import sys
+import copy
+import random
 import logging
 # logger
 logging.basicConfig(
@@ -20,6 +25,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger('Twitter-Ritual')
 # libraries
+from PIL import Image
 from dotenv import load_dotenv
 import tweepy
 from tweepy import ( API, Cursor, OAuthHandler, TweepError, RateLimitError )
