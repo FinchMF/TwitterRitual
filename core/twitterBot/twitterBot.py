@@ -1,4 +1,4 @@
-from core import ( BotDirectory, logger )
+from core import ( BotDirectory, Cursor, logger )
 
 class TwitterBot(BotDirectory):
     """object to instantiate twitter bot for ritual"""
@@ -6,6 +6,7 @@ class TwitterBot(BotDirectory):
         super().__init__(*args, **kwargs)
         self.__tweets: dict = {}
         self.__trends: dict = {}
+        self.__trendTweets: dict = {}
 
     @property
     def tweets(self):
@@ -14,6 +15,10 @@ class TwitterBot(BotDirectory):
     @property
     def trends(self):
         return self.__trends
+
+    @property
+    def trendTweets(self):
+        return self.__trendTweets
         
     def getUserId(self, user: str) -> str:
         """function to get user id"""
@@ -27,14 +32,25 @@ class TwitterBot(BotDirectory):
         """function to get trending hashtags for a given location"""
         self.trends[name]: list = self.client.trends_place(id=woeid)
 
-    def searchPopularTweets(self, query: str):
-        pass
-        # search popular tweets to find seed material for 
-        # the ai to generate from. 
-        # Make a combination of the hashtags, and names to programmatically inject
-        # this should happen in text after finding tweets
-        
+    def searchPopularTweets(self, query: str, records: int, date: str):
+        """function to search tweets by query and date:
+                - used to find tweets from trending hashtags and names"""
+        tweets: list = []
+        count: int = 0
+        if self.verbose: logger.info(f'Calling Twitter | {date} | {search_query}') # check searching locations?
 
+        for page in Cursor(self.client.seach,
+                           q=query, lang='en',
+                           since=date, tweet_mode='extended',
+                           wait_on_rate_limit=True, count=200).pages(records):
+            for tweet in page:
+                tweets.append(tweet) # maybe build a filter here?
+
+        if self.verbose: logger.info(f"PAGE: {count} | Tweets Filtered: {len(tweets)}")
+        count += 1
+
+        self.trendTweets[query]: list = tweets
+        
     def readTweet(self, user: str, most_recent: bool = False):
         """function to recieve tweets from user"""
         userId = self.getUserId(user=user)
