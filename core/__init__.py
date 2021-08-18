@@ -36,8 +36,9 @@ from core.twitterBot.credentials import Credentials
 from core.twitterBot.botNames import BotDirectory
 from core.twitterBot.twitterBot import TwitterBot
 from core.behavior.image.glitch import Glitch
-from core.behavior.text.webscraper.baudrillard.URLS import URLS
-from core.behavior.text.webscraper.crawler import Crawler
+from core.behavior.text.webscraper.baudrillard.URLS import URLS as BaudrillardURLS
+from core.behavior.text.webscraper.politicians.URLS import URLS as PoliticianURLS
+from core.behavior.text.webscraper.crawler import BaudrillardCrawler
 
 
 __author__ = 'Matthew Finch'

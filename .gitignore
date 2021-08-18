@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # behavior data
-.jpg
-.txt
+*.jpg
+*.txt
