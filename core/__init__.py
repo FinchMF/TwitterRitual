@@ -16,6 +16,7 @@ import sys
 import copy
 import random
 import logging
+import requests
 # logger
 logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(name)s - [ %(filename)s: %(lineno)d @ %(funcName)s ] - %(message)s',
@@ -25,6 +26,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger('Twitter-Ritual')
 # libraries
+from bs4 import BeautifulSoup
 from PIL import Image
 from dotenv import load_dotenv
 import tweepy
@@ -33,6 +35,9 @@ from tweepy import ( API, Cursor, OAuthHandler, TweepError, RateLimitError )
 from core.twitterBot.credentials import Credentials
 from core.twitterBot.botNames import BotDirectory
 from core.twitterBot.twitterBot import TwitterBot
+from core.behavior.image.glitch import Glitch
+from core.behavior.text.webscraper.baudrillard.URLS import URLS
+from core.behavior.text.webscraper.crawler import Crawler
 
 
 __author__ = 'Matthew Finch'
