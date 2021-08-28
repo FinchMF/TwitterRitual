@@ -1,3 +1,9 @@
+"""
+Contains directory of interaction mapping for TwitterBots
+
+author@matthewfinch
+"""
+
 from core import ( Credentials, load_dotenv, os )
 
 class BotDirectory(Credentials):

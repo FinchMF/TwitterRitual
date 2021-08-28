@@ -1,3 +1,9 @@
+"""
+Contains authentification credential mechanism for TwitterBot
+
+author@matthewfinch
+"""
+
 from core import ( OAuthHandler, API, os, load_dotenv )
 
 class CredentialError(Exception):

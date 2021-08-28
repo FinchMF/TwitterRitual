@@ -1,0 +1,1 @@
+"""module for behaviors regarding image manipulation"""

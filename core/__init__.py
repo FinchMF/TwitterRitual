@@ -5,13 +5,14 @@ SHORT DESCRIPTION:
     Twitter Ritual is an automated art process that takes place
     between four Twitter Bots. Each of these bots are owned by myself.
     Each bot has a role in the process and the art is a result of their
-    automated interaction. The automation handles a degress of randomness.
+    automated interaction. The automation handles degrees of randomness.
     The automation includes a mixuture of AI generative content and rule based
     manipulation. 
 """
 # built in imports
 import io
 import os
+import re
 import sys
 import copy
 import random
@@ -38,7 +39,7 @@ from core.twitterBot.twitterBot import TwitterBot
 from core.behavior.image.glitch import Glitch
 from core.behavior.text.webscraper.baudrillard.URLS import URLS as BaudrillardURLS
 from core.behavior.text.webscraper.politicians.URLS import URLS as PoliticianURLS
-from core.behavior.text.webscraper.crawler import BaudrillardCrawler
+from core.behavior.text.webscraper.crawler import ( BaudrillardCrawler, PoliticianCrawler )
 
 
 __author__ = 'Matthew Finch'

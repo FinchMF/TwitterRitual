@@ -1,0 +1,1 @@
+"""module that contains behavior regarding text"""

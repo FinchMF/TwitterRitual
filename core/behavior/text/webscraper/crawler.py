@@ -1,11 +1,20 @@
+"""
+Contains text crawlers to generate training and seed data
+for TwitterBot text behaviors during the Twitter Ritual
+
+author@matthewfinch
+"""
+
 from core import ( requests, BeautifulSoup, 
                    BaudrillardURLS, PoliticianURLS,
-                   os, logger )
+                   os, logger, re )
 
 class ScraperError(Exception):
     pass
 
 class BaudrillardCrawler:
+    """crawler to collect Baudrillard text"""
+    # location for baudrillard text
     textRoot = './core/behavior/text/webscraper/baudrillard/textData/'
     """object to scrape baudrillard"""
     def __init__(self, verbose: bool = False):
@@ -48,7 +57,10 @@ class BaudrillardCrawler:
             f.write(self.text[self.title])
         if self.verbose: logger.info(f'Saved at: {_file}')
 
+
 class PoliticianCrawler:
+    """crawler to collect all presidental speeches"""
+    # location for politcal text
     textRoot = './core/behavior/text/webscraper/politicians/textData/'
     def __init__(self, verbose: bool = False):
 
@@ -61,48 +73,52 @@ class PoliticianCrawler:
     def saveSpeeches(self, speech_links: list):
         """function to save speeches"""
         for link in speech_links:
-            for l in link:
+            # build url
+            url: str = PoliticianURLS.root+''.join(link)
+            # grab speech title [date:title-of-speech]
+            title: str = url.split('/')[-1]
+            #print(title)
+            res: object = requests.get(url)
+            page: object = BeautifulSoup(res.content, 'html.parser')
+            # capture text
+            text: list = []
+            for i in page.find_all('p'):
+                text.append(i.get_text())
+            # set name and date of speech
+            pres_name: str = '-'.join(''.join(text[1:2]).replace('.', '').split(' ')).lower()
+            dos: str = '-'.join(''.join(text[2:3]).replace(',', '').split(' ')).lower()
 
-                url: str = PoliticianURLS.root+''.join(l)
-                res: object = requests.get(url)
-                page: object = BeautifulSoup(res.content, 'html.parser')
-
-                text: list = []
-
-                for i in page.find_all('p'):
-                    text.append(i.get_text())
-
-                pres_name: str = '-'.join(''.join(text[1:2]).replace('.', '').split(' ')).lower()
-                dos: str = '-'.join(''.join(text[2:3]).replace(',', '').split(' ')).lower()
-
-                if self.verbose: logger.info(f'Speech on Date: {dos} given by {pres_name}')
-
-                try:
-                    os.mkdir(pres_name)
-                    if self.verbose: logger.info(f'Directory Made: {pres_name}')
-                except FileExistsError:
-
-                    _file: str = f'{PoliticianCrawler.textRoot}{pres_name}/{dos}.txt'
-                    with open( _file, 'w') as f:
-                        for t in text[3:-2]:
-                            f.write(f'{t}\n')
+            if self.verbose: logger.info(f'Speech on Date: {dos} given by {pres_name}')
+            # save speech in a folder per president [pres-name/date-title.txt]
+            try:
+                os.mkdir(f'{PoliticianCrawler.textRoot}{pres_name}')
+                if self.verbose: logger.info(f'Directory Made: {pres_name}')
+            except FileExistsError:
+                # create and write file
+                _file: str = f'{PoliticianCrawler.textRoot}{pres_name}/{title}.txt'
+                with open( _file, 'w') as f:
+                    # write only the speech text
+                    for t in text[3:-2]:
+                        f.write(f'{t}\n')
 
     def fetchSpeeches(self):
         """function to fetch all presidental speeches"""
-        speeches_links: list = []
-        for page in range(PoliticianURLS.pages + 1):
-            
+        # capture all speech links
+        speech_links: list = []
+        for page in range(0, PoliticianURLS.pages):
+            # set url
             url: str = PoliticianURLS.speeches_page
             page_url: str = PoliticianURLS.page_url
             if self.verbose: logger.info(f'Page {page} Gathered...')
             speeches: str = f'{url}{page_url}{page}'
             res: object = requests.get(speeches)
-            page: object = BeautifulSoup(page.content, 'html.parser')
-
+            page: object = BeautifulSoup(res.content, 'html.parser')
+            # capture speech links per page
             links: str = []
-            for link in request.find_all('a', href=True):
-                links.append(link['href'])
-
-            speech_links.append(links[165:177])
-
+            for link in page.find_all('a', href=True):
+                if re.match('/the-presidency/presidential-speeches/', link['href']):
+                    links.append(link['href'])
+                    
+            speech_links.extend(links)
+        # pass all speech links to function that scrapes speech text from link
         self.saveSpeeches(speech_links=speech_links)

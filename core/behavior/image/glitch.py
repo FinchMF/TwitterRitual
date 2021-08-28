@@ -1,3 +1,11 @@
+"""
+Contains the Glitch object. This object is used by 
+an instance of TwitterBot to distort an image during 
+the Twitter Ritual
+
+author@matthewfinch
+"""
+
 from core import ( io, os, copy, random, Image, logger )
 
 class BadImageException(Exception):

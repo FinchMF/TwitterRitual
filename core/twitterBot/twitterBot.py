@@ -1,3 +1,10 @@
+"""
+Contains Twitterbot architecture for 
+interaction with content and twitter api
+
+author@matthewfinch
+"""
+
 from core import ( BotDirectory, Cursor, logger )
 
 class TwitterBot(BotDirectory):
