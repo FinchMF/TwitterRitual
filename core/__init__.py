@@ -47,6 +47,7 @@ from core.behavior.text.webscraper.crawler import ( BaudrillardCrawler, Politici
 from core.behavior.text.nlp.mathUtils import softmax
 from core.behavior.text.nlp.word2vec import Word2vec
 from core.behavior.text.nlp.preprocess import TEXT
+from core.behavior.text.nlp.train import Trainer
 
 
 __author__ = 'Matthew Finch'
