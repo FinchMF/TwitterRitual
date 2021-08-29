@@ -18,6 +18,7 @@ import copy
 import random
 import logging
 import requests
+from string import punctuation
 # logger
 logging.basicConfig(
     format='%(asctime)s [%(levelname)s] %(name)s - [ %(filename)s: %(lineno)d @ %(funcName)s ] - %(message)s',
@@ -30,6 +31,9 @@ logger = logging.getLogger('Twitter-Ritual')
 from bs4 import BeautifulSoup
 from PIL import Image
 from dotenv import load_dotenv
+import numpy as np
+import nltk
+from nltk.corpus import stopwords
 import tweepy
 from tweepy import ( API, Cursor, OAuthHandler, TweepError, RateLimitError )
 # modules
@@ -40,6 +44,9 @@ from core.behavior.image.glitch import Glitch
 from core.behavior.text.webscraper.baudrillard.URLS import URLS as BaudrillardURLS
 from core.behavior.text.webscraper.politicians.URLS import URLS as PoliticianURLS
 from core.behavior.text.webscraper.crawler import ( BaudrillardCrawler, PoliticianCrawler )
+from core.behavior.text.nlp.mathUtils import softmax
+from core.behavior.text.nlp.word2vec import Word2vec
+from core.behavior.text.nlp.preprocess import TEXT
 
 
 __author__ = 'Matthew Finch'
