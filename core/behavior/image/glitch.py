@@ -11,6 +11,24 @@ from core import ( io, os, copy, random, Image, logger )
 class BadImageException(Exception):
     pass
 
+
+class Validator:
+
+    def __init__(self, checkType: type):
+
+        self.__checkType: type = checkType
+
+    @property
+    def checkType(self) -> type:
+        return self.__checkType
+
+    def __contains__(self, t: type) -> bool:
+        if isinstance(t, self.checkType):
+            result: bool = True
+        else:
+            result: bool = False
+
+
 class Glitch:
     """
         object to glitch image
@@ -42,47 +60,67 @@ class Glitch:
         self.__verbose: bool = verbose
 
     @property
-    def pathIn(self):
+    def pathIn(self) -> str:
         return self.__pathIn
 
     @property
-    def pathOut(self):
+    def pathOut(self) -> str:
         return self.__pathOut
 
     @property
-    def amnt(self):
+    def amnt(self) -> float:
         return self.__amnt
 
     @amnt.setter
     def amnt(self, value: float):
-        self.__amnt = value
+        if isinstance(value, float):
+            self.__amnt: float = value
+        else:
+            raise TypeError(f'Glitch.amnt only supports type float\
+                              | type {type(value)} was passed')
 
     @property
-    def seed(self):
+    def seed(self) -> float:
         return self.__seed
 
     @seed.setter
     def seed(self, value: float):
-        self.__seed = value
+        if isinstance(value, float):
+            self.__seed: float = value
+        else:
+            raise TypeError(f'Glitch.seed only supports type float\
+                             | type {type(value)} was passed')
 
     @property
-    def n_iter(self):
+    def n_iter(self) -> int:
         return self.__n_iter
 
     @n_iter.setter
     def n_iter(self, value: int):
-        self.__n_iter = value
+        if isinstance(value, int):
+            self.__n_iter: int = value
+        else:
+            raise TypeError(f'{n_iter.__name__} only supports type int\
+                             | type {type(value)} was passed')
 
     @property
-    def max_width(self):
+    def max_width(self) -> int:
         return self.__max_width
 
+    @max_width.setter
+    def max_width(self, value: int):
+        if isinstance(value, int):
+            self.__max_width: int = value
+        else:
+            raise TypeError(f'Gltich.max_width')
+
+
     @property
-    def max_retires(self):
+    def max_retires(self) -> int:
         return self.__max_retries
 
     @property
-    def verbose(self):
+    def verbose(self) -> bool:
         return self.__verbose
 
     def toBytes(self, img: object):

@@ -11,16 +11,65 @@ Corpus can be a single text or speech or multiples
 author@matthefinch         
 """
 # NOTE: do these methods help with generative text?
+# NOTE: update format function
 from core import ( punctuation, stopwords )
+
+class VocabError(Exception):
+    pass
 
 class Vocab:
     """object to build vocabulary"""
     def __init__(self, corpus: list):
 
-        self.corpus: list = corpus
-        self.wordCount: dict = {}
-        self.length: int = None
-        self.words: dict = {}
+        self.__corpus: list = corpus
+        self.__wordCount: dict = {}
+        self.__length: int = None
+        self.__words: dict = {}
+
+    @property
+    def corpus(self) -> list:
+        return self.__corpus
+
+    @corpus.setter
+    def corpus(self, corpus: list):
+        if isinstance(corpus, list):
+            self.__corpus: list = corpus
+        else:
+            raise VocabError(f'Vocab.corpus only supports type list | type {type(corpus)} was passed')
+        
+    @property
+    def wordCount(self) -> dict:
+        return self.__wordCount
+
+    @wordCount.setter
+    def wordCount(self, wordCount: dict):
+        if isinstance(wordCount, dict):
+            self.__wordCount: dict = wordCount
+        else:
+            raise VocabError(f'Vocab.wordCount only supports type dict | type {type(wordCount)} was passed')
+        
+    @property
+    def length(self) -> int:
+        return self.__length
+
+    @length.setter
+    def length(self, length: int):
+        if isinstance(length, int):
+            self.__length: int = length
+        else:
+            VocabError(f'Vocab.length only supports type int | type {type(length)} was passed')
+
+    @property
+    def words(self) -> dict:
+        return self.__words
+
+    @words.setter
+    def words(self, words: dict):
+        if isinstance(words, dict):
+            self.__words: dict = words
+        else:
+            VocabError(f'Vocab.words only supports dict | type {type(words)} was passed')
+
 
     def build(self):
         """build vocab"""
