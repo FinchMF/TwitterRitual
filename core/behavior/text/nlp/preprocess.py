@@ -35,7 +35,8 @@ class Vocab:
         if isinstance(corpus, list):
             self.__corpus: list = corpus
         else:
-            raise VocabError(f'Vocab.corpus only supports type list | type {type(corpus)} was passed')
+            raise VocabError(f'Vocab.corpus only supports type list\
+                             | type {type(corpus)} was passed')
         
     @property
     def wordCount(self) -> dict:
@@ -46,7 +47,8 @@ class Vocab:
         if isinstance(wordCount, dict):
             self.__wordCount: dict = wordCount
         else:
-            raise VocabError(f'Vocab.wordCount only supports type dict | type {type(wordCount)} was passed')
+            raise VocabError(f'Vocab.wordCount only supports type dict\
+                              | type {type(wordCount)} was passed')
         
     @property
     def length(self) -> int:
@@ -57,7 +59,8 @@ class Vocab:
         if isinstance(length, int):
             self.__length: int = length
         else:
-            VocabError(f'Vocab.length only supports type int | type {type(length)} was passed')
+            VocabError(f'Vocab.length only supports type int\
+                        | type {type(length)} was passed')
 
     @property
     def words(self) -> dict:
@@ -68,7 +71,8 @@ class Vocab:
         if isinstance(words, dict):
             self.__words: dict = words
         else:
-            VocabError(f'Vocab.words only supports dict | type {type(words)} was passed')
+            VocabError(f'Vocab.words only supports dict\
+                        | type {type(words)} was passed')
 
 
     def build(self):

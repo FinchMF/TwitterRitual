@@ -12,21 +12,28 @@ class BadImageException(Exception):
     pass
 
 
-class Validator:
+# class Validator:
+#     """object to validate data types"""
+#     def __init__(self, checkType: type):
 
-    def __init__(self, checkType: type):
+#         self.__checkType: type = checkType
 
-        self.__checkType: type = checkType
+#     @property
+#     def checkType(self) -> type:
+#         return self.__checkType
 
-    @property
-    def checkType(self) -> type:
-        return self.__checkType
+#     def check(self, t: type) -> bool:
+#         """function to check and validate data type"""
+#         if isinstance(t, self.checkType):
+#             result: bool = True
+#         else:
+#             result: bool = False
+#         return result
 
-    def __contains__(self, t: type) -> bool:
-        if isinstance(t, self.checkType):
-            result: bool = True
-        else:
-            result: bool = False
+
+# strValidator: object = Validator(checkType=str)
+# floatValidator: object = Validator(checkType=float)
+# intValidator: object = Validator(checkType=int)
 
 
 class Glitch:
@@ -58,6 +65,7 @@ class Glitch:
         self.__max_width: int = max_width
         self.__max_retries: int = max_retries
         self.__verbose: bool = verbose
+
 
     @property
     def pathIn(self) -> str:
@@ -100,7 +108,7 @@ class Glitch:
         if isinstance(value, int):
             self.__n_iter: int = value
         else:
-            raise TypeError(f'{n_iter.__name__} only supports type int\
+            raise TypeError(f' Glitch.n_iter only supports type int\
                              | type {type(value)} was passed')
 
     @property
@@ -112,16 +120,25 @@ class Glitch:
         if isinstance(value, int):
             self.__max_width: int = value
         else:
-            raise TypeError(f'Gltich.max_width')
-
+            raise TypeError(f'Gltich.max_width only supports int\
+                             | type {type(value)} was passed')
 
     @property
     def max_retires(self) -> int:
         return self.__max_retries
 
+    @max_retries
+    def max_retries(self, value: int):
+        if isinstance(value, int):
+            self.__max_retries: int = value
+        else:
+            raise TypeError(f'Glitch.max_retires only supports int\
+                             | type {type(value)} was passed')
+
     @property
     def verbose(self) -> bool:
         return self.__verbose
+
 
     def toBytes(self, img: object):
         """function to turn image into bytes"""
@@ -213,6 +230,7 @@ class Glitch:
             dataCopy[modified_idx]: int = int(self.amnt * 256 / 100)
 
         return dataCopy
+
 
     def processGlitch(self):
         """function to run glitch process and iterate through retires"""
