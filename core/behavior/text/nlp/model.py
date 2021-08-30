@@ -7,13 +7,13 @@ author@matthewfinch
 
 from core import ( Word2vec, TEXT )
 
-class Trainer:
+class Model:
     """object to train model"""
     # currently the only model it is training is Word2vec
     def __init__(self, corpus: str, epochs: int = 2000):
 
         self.corpus: str = corpus
-        self.model: object = Word2vec()
+        self.NN: object = Word2vec()
         self.epochs: int = epochs
 
     def processText(self):
@@ -27,4 +27,4 @@ class Trainer:
 
     def train(self):
         """train model"""
-        self.model.train(epochs=self.epochs)
+        self.NN.train(epochs=self.epochs)
