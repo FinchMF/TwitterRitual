@@ -5,7 +5,7 @@ Trainer can store the corpus, model and trained embeddings
 author@matthewfinch
 """
 
-from core import ( word2vec, TEXT )
+from core import ( Word2vec, TEXT )
 
 class Trainer:
     """object to train model"""
@@ -18,7 +18,7 @@ class Trainer:
 
     def processText(self):
         """function to process text"""
-        self.corpus: str = TEXT.format(corpus=self.corpus)
+        # self.corpus: str = TEXT.format(corpus=self.corpus)
         self.corpus: list = TEXT.preprocess(corpus=self.corpus)
 
     def prepare(self):

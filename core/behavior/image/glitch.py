@@ -124,10 +124,10 @@ class Glitch:
                              | type {type(value)} was passed')
 
     @property
-    def max_retires(self) -> int:
+    def max_retries(self) -> int:
         return self.__max_retries
 
-    @max_retries
+    @max_retries.setter
     def max_retries(self, value: int):
         if isinstance(value, int):
             self.__max_retries: int = value

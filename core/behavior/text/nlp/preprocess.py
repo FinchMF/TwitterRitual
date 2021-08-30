@@ -90,14 +90,14 @@ class Vocab:
         self.data: list = sorted(list(words.keys()))
         
         for i in range(len(words)):
-            self.words[words[i]] = i
+            self.words[self.data[i]] = i
 
 
 class TEXT:
     """object to handle vocab and text processing"""
     @staticmethod
-    def format(self, corpus: str) -> str:
-        # format speech and text to necessary state for  preprocessing 
+    def format(corpus: str) -> str:
+        # format speech and text to necessary state for preprocessing 
         pass
 
     @staticmethod
@@ -105,11 +105,11 @@ class TEXT:
         """function to process corpus"""
         stopWords: list = list(set(stopwords.words('english')))
         processedCorpus: list = []
-        sentences: list = coprus.split('.') # double check how text / corpus is formatted
+        sentences: list = corpus.split('.') # double check how text / corpus is formatted
         for i in range(len(sentences)):
             sentences[i]: str = sentences[i].strip()
             sentence: list = sentences[i].split()
-            sentence: list = [word.strip(punctutation) for word in sentence 
+            sentence: list = [word.strip(punctuation) for word in sentence 
                                             if word not in stopWords]
             sentence: list = [word.lower() for word in sentence]
             processedCorpus.append(sentence)
@@ -120,17 +120,18 @@ class TEXT:
     def prepareData(corpus: list, model: object) ->  tuple:
         """function to prepare data to train model using skip gram"""
 
-        VOCAB: object = Vocab(corpus=corpus).build()
+        VOCAB: object = Vocab(corpus=corpus)
+        VOCAB.build()
 
         for sentence in corpus:
-            for i in range(len(corpus)):
+            for i in range(len(sentence)):
                 centerWord: list = [0 for x in range(VOCAB.length)]
-                centerWord[VOCAB[sentence[i]]]: int = 1
+                centerWord[VOCAB.words[sentence[i]]]: int = 1
                 context: list = [0 for x in range(VOCAB.length)]
 
                 for j in range(i-model.window_size, i+model.window_size):
                     if i!=j and j>=0 and j<len(sentence):
-                        context[VOCAB[sentence[j]]] += 1
+                        context[VOCAB.words[sentence[j]]] += 1
                 model.X_train.append(centerWord)
                 model.y_train.append(context)
         model.initialize(VOCAB.length, VOCAB.data)
