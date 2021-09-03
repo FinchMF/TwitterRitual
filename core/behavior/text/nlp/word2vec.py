@@ -1,5 +1,10 @@
-from core import ( np, softmax, logger )
+"""
+Contains Word2vec model 
 
+author@matthewfinch
+"""
+
+from core import ( np, softmax, logger )
 
 class Word2vec(object):
     """object to generate word vectors

@@ -18,6 +18,7 @@ import copy
 import random
 import logging
 import requests
+import pickle as pkl
 from string import punctuation
 # logger
 logging.basicConfig(
@@ -47,7 +48,7 @@ from core.behavior.text.webscraper.crawler import ( BaudrillardCrawler, Politici
 from core.behavior.text.nlp.mathUtils import softmax
 from core.behavior.text.nlp.word2vec import Word2vec
 from core.behavior.text.nlp.preprocess import TEXT
-from core.behavior.text.nlp.train import Trainer
+from core.behavior.text.nlp.model import Model
 
 
 __author__ = 'Matthew Finch'

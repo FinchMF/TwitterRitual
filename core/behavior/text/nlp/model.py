@@ -28,3 +28,8 @@ class Model:
     def train(self):
         """train model"""
         self.NN.train(epochs=self.epochs)
+
+    def save(self, model_name: str) -> object:
+        """function to save model"""
+        with open(f"models/{model_name}_{self.epochs}.pkl", 'rb') as m:
+            pickle.dump(self.NN, m)
