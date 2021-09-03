@@ -149,7 +149,7 @@ class Glitch:
 
     def png2data(self):
         """function to read in png image data"""
-        img: object = Image.open(self.path)
+        img: object = Image.open(self.pathIn)
         img.convert('RGB')
         self.toBytes(img=img)
 
@@ -236,7 +236,7 @@ class Glitch:
         """function to run glitch process and iterate through retires"""
         self.readImg()
         self.resize()
-        max_retr = self.max_retires
+        max_retr = self.max_retries
         self.data = bytearray(self.data)
         while max_retr:
             self.dataCopy = self.glitch()

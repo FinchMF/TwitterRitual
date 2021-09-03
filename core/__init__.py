@@ -49,6 +49,7 @@ from core.behavior.text.nlp.mathUtils import softmax
 from core.behavior.text.nlp.word2vec import Word2vec
 from core.behavior.text.nlp.preprocess import TEXT
 from core.behavior.text.nlp.model import Model
+from core.behavior.text.nlp.glove import Glove
 
 
 __author__ = 'Matthew Finch'
