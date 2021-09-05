@@ -18,7 +18,9 @@ import copy
 import random
 import logging
 import requests
+import random
 import pickle as pkl
+from glob import glob
 from string import punctuation
 # logger
 logging.basicConfig(
@@ -42,6 +44,7 @@ from core.twitterBot.credentials import Credentials
 from core.twitterBot.botNames import BotDirectory
 from core.twitterBot.twitterBot import TwitterBot
 from core.behavior.image.glitch import Glitch
+from core.behavior.image.glitcher import Glitcher
 from core.behavior.text.webscraper.baudrillard.URLS import URLS as BaudrillardURLS
 from core.behavior.text.webscraper.politicians.URLS import URLS as PoliticianURLS
 from core.behavior.text.webscraper.crawler import ( BaudrillardCrawler, PoliticianCrawler )

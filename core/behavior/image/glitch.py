@@ -42,11 +42,11 @@ class Glitch:
         ----------------------
         image is glitched with pixel manipulation
 
-        -  pathIn: path to image being glitched
-        -  pathOut: path to resultant glitched image
-        -  amnt: amount to change pixels by (0-1) - Default set at random
-        -  seed: location of pixel changed within a window (0-1) - Default set at random
-        -  n_iter: number of pixels (windows) to change - default set at random integer (0 - 40)
+        -  :pathIn: path to image being glitched
+        -  :pathOut: path to resultant glitched image
+        -  :amnt: amount to change pixels by (0-1) - Default set at random
+        -  :seed: location of pixel changed within a window (0-1) - Default set at random
+        -  :n_iter: number of pixels (windows) to change - default set at random integer (0 - 40)
      """
     def __init__(self, pathIn: str,
                        pathOut: str, 
