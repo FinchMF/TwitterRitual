@@ -29,3 +29,10 @@ class Cycle(TwitterBot, Glitcher):
     def initGlitch(self):
         """function to initialize glitch functionality"""
         self.__G: Glitcher = super(Glitcher, self).__init__()
+
+    def ritual(self):
+
+        # invoke actions to make edits
+        # make materials (images for now) - later text
+        # interaction cycle  
+        pass
