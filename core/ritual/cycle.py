@@ -1,5 +1,5 @@
 
-from core import ( TwitterBot, Glicher, random, os )
+from core import ( TwitterBot, Glitcher, random, os )
 
 class Cycle(TwitterBot, Glitcher):
     """object to initiate a bot and it's twitter ritual"""
@@ -9,30 +9,26 @@ class Cycle(TwitterBot, Glitcher):
         
         self.__randomActorIdx: int = random.randint(0, len(Cycle.__actor)-1)
         self.__actor: str = os.getenv(Cycle.__actor[self.__randomActorIdx])
+        TwitterBot.__init__(self, bot=self.actor)
+        Glitcher.__init__(self)
 
     @property
     def actor(self) -> str:
         return self.__actor
-    
-    @property
-    def bot(self) -> TwitterBot:
-        return self.__bot
-
-    @property
-    def G(self) -> Glitcher:
-        return self.__G
-
-    def initBot(self):
-        """function to initialize bot"""
-        self.__bot: TwitterBot = super(TwitterBot, self).__init__(bot=self.actor)
-
-    def initGlitch(self):
-        """function to initialize glitch functionality"""
-        self.__G: Glitcher = super(Glitcher, self).__init__()
 
     def ritual(self):
 
         # invoke actions to make edits
         # make materials (images for now) - later text
-        # interaction cycle  
+        # interaction cycle 
+        # 
+        # check to see is any bots have left messages
+        # check trends
+        # generate text
+        # glitch image
+        # post link 
+        # post glitched image
+        # post generated text
+        # 
+        # figure out what trends behavior can be made 
         pass
