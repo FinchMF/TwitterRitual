@@ -110,7 +110,7 @@ class TEXT:
             sentences[i]: str = sentences[i].strip()
             sentence: list = sentences[i].split()
             sentence: list = [word.strip(punctuation) for word in sentence 
-                                            if word not in stopWords]
+                                                      if word not in stopWords]
             sentence: list = [word.lower() for word in sentence]
             processedCorpus.append(sentence)
 
