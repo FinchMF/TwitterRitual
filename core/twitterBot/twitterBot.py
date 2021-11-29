@@ -14,6 +14,7 @@ class TwitterBot(BotDirectory):
         self.__tweets: dict = {}
         self.__trends: dict = {}
         self.__trendTweets: dict = {}
+        self.__verbose: bool = True
 
     @property
     def tweets(self):
@@ -26,6 +27,16 @@ class TwitterBot(BotDirectory):
     @property
     def trendTweets(self):
         return self.__trendTweets
+
+    @property 
+    def verbose(self) -> bool:
+        return self.__verbose
+
+    @verbose.setter
+    def verbose(self, v: bool):
+        if type(v) != bool:
+            raise Exception(f'{v} is not supported. Must be a bool')
+        self.__verbose: bool = v
         
     def getUserId(self, user: str) -> str:
         """function to get user id"""
@@ -44,9 +55,9 @@ class TwitterBot(BotDirectory):
                 - used to find tweets from trending hashtags and names"""
         tweets: list = []
         count: int = 0
-        if self.verbose: logger.info(f'Calling Twitter | {date} | {search_query}') # check searching locations?
+        if self.verbose: logger.info(f'Calling Twitter | {date} | {query}') # check searching locations?
 
-        for page in Cursor(self.client.seach,
+        for page in Cursor(self.client.search,
                            q=query, lang='en',
                            since=date, tweet_mode='extended',
                            wait_on_rate_limit=True, count=200).pages(records):

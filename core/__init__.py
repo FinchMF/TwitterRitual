@@ -37,6 +37,8 @@ from dotenv import load_dotenv
 import numpy as np
 import nltk
 from nltk.corpus import stopwords
+import torch
+import torch.nn as nn
 import tweepy
 from tweepy import ( API, Cursor, OAuthHandler, TweepError, RateLimitError )
 # modules
