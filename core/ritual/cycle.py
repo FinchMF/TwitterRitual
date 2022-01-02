@@ -38,6 +38,7 @@ class Cycle(TwitterBot, Glitcher):
         # figure out what trends behavior can be made 
         pass
 
+
     def allComment(
         self, 
         text: str = None, 
