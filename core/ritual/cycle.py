@@ -9,12 +9,17 @@ class Cycle(TwitterBot, Glitcher):
         
         self.__randomActorIdx: int = random.randint(0, len(Cycle.__actor)-1)
         self.__actor: str = os.getenv(Cycle.__actor[self.__randomActorIdx])
-        TwitterBot.__init__(self, bot=self.actor)
+        self.__role: str = Cycle.__actor[self.__randomActorIdx]
+        TwitterBot.__init__(self, bot=self.role)
         Glitcher.__init__(self)
 
     @property
     def actor(self) -> str:
         return self.__actor
+
+    @property
+    def role(self) -> str:
+        return self.__role
 
     def ritual(self):
 
@@ -32,3 +37,36 @@ class Cycle(TwitterBot, Glitcher):
         # 
         # figure out what trends behavior can be made 
         pass
+
+    def allComment(
+        self, 
+        text: str = None, 
+        image: str = None, 
+        in_reply_to: str = None) -> dict:
+
+        success: dict = {}
+        bots = [ role for role in list(self.botConnections.keys()) if role != self.role ]
+        self.postTweet(text=text, image=image, in_reply_to=in_reply_to)
+        success[self.actor] = True
+
+        for bot in bots:
+
+            try:
+                TwitterBot.__init__(self, bot=bot)
+
+                if in_reply_to is None:
+                    self.postTweet(
+                        text=text, 
+                        image=image)
+                else:
+                    self.postTweet(
+                        text=text,
+                        image=image, 
+                        in_reply_to=in_reply_to
+                    )
+                success[bot] = True
+            except Exception as e:
+                print(e)
+                success[bot] = False
+
+        return success

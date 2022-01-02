@@ -89,13 +89,23 @@ class TwitterBot(BotDirectory):
     def postTweet(self, text: str = None, image: str = None, verbose: bool = False, in_reply_to: str = None):
         """function to tweet"""
         if text and image:
-            self.client.update_with_media(filename=image, status=text, in_reply_to_status_id=in_reply_to)
-            if verbose: logger.info(f"{self.bot} tweeted - TEXT: {text} | IMAGE: {image}")
+            self.client.update_with_media(filename=image, 
+                                          status=text, 
+                                          in_reply_to_status_id=in_reply_to, 
+                                          auto_populate_reply_metadata=True)
+            if verbose: 
+                logger.info(f"{self.bot} tweeted - TEXT: {text} | IMAGE: {image}")
 
         elif image and text == None:
-            self.client.update_with_media(filename=image, in_reply_to_status_id=in_reply_to)
-            if verbose: logger.info(f"{self.bot} tweeted - IMAGE: {image}")
+            self.client.update_with_media(filename=image, 
+                                          in_reply_to_status_id=in_reply_to, 
+                                          auto_populate_reply_metadata=True)
+            if verbose: 
+                logger.info(f"{self.bot} tweeted - IMAGE: {image}")
         
         else:
-            self.client.update_status(status=text, in_reply_to_status_id=in_reply_to)
-            if verbose: logger.info(f"{self.bot} tweeted - TEXT: {text}")
+            self.client.update_status(status=text, 
+                                      in_reply_to_status_id=in_reply_to, 
+                                      auto_populate_reply_metadata=True)
+            if verbose: 
+                logger.info(f"{self.bot} tweeted - TEXT: {text}")
