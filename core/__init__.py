@@ -56,6 +56,7 @@ from core.behavior.text.nlp.word2vec import Word2vec
 from core.behavior.text.nlp.preprocess import TEXT
 from core.behavior.text.nlp.model import Model
 from core.behavior.text.nlp.glove import Glove
+from core.behavior.trends.trends import Trend
 from core.ritual.cycle import Cycle
 
 

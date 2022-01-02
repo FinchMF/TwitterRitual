@@ -57,15 +57,15 @@ class Trend(object):
             {'name': random_location['name'], 'woeid': random_location['woeid']}
         )
 
-    def searchTopic(self, random: bool = True, 
+    def searchTopic(self, random_location: bool = True, 
                           location: dict = None, 
                           records: int = 10, 
-                          date = datetime.datetime.now()) -> list:
+                          date = datetime.datetime.now().strftime("%Y-%m-%d")) -> list:
 
         """function to find random trend from a location
             location can be random if none is specified"""
 
-        if random:
+        if random_location:
 
             if len(self.memory) == 0:
                 self.addRandomLocationTopics()
@@ -80,8 +80,8 @@ class Trend(object):
             random_topic: dict = self._random_topic(location_name=location['name'])
 
         self.bot.searchPopularTweets(query=random_topic['name'], records=records, date=date)
-
-        data = [ tweet._json for tweet in self.bot.trendTweets[location['name']] ]
+        # if there was going to be a filter class ;)
+        data = [ tweet._json for tweet in self.bot.trendTweets[random_topic['name']] ]
 
         return data
 
