@@ -75,3 +75,13 @@ def convertManyToOne(texts: list) -> str:
         text += load_data(txt)
 
     return text
+
+def save_model(filename: str, decoder: object) -> None:
+
+    s_filename = os.path.splitext(os.path.basename(filename))[0] + '.pt'
+    torch.save(decoder, s_filename)
+
+def load_model(filename: str) -> object:
+
+    s_filename = os.path.spiltext(os.path.basename(filename))[0] + '.pt'
+    return torch.load(s_filename)

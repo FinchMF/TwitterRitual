@@ -3,7 +3,8 @@ Contains LSTM architecture for text generator
 """
 
 
-from core import ( torch, nn )
+import torch
+import torch.nn as nn
 
 class LSTM(nn.Module):
 
@@ -17,14 +18,14 @@ class LSTM(nn.Module):
 
         super(LSTM, self).__init__()
 
-        self.vocab_size: int = vocab_siz
+        self.vocab_size: int = vocab_size
         self.output_size: int = output_size
         self.embedding_dim: int = embedding_dim
         self.hidden_dim: int = hidden_dim
         self.n_layers: int = n_layers
         self.dropout: float = dropout
 
-        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+        self.embeddings = nn.Embedding(vocab_size, embedding_dim)
         self.lstm = nn.LSTM(embedding_dim, hidden_dim, n_layers, dropout=dropout, batch_first=True)
         self.dropout = nn.Dropout(dropout)
 
@@ -43,13 +44,13 @@ class LSTM(nn.Module):
 
         lstm_output = self.dropout(lstm_output)
         lstm_output = self.fcl(lstm_output)
-        lstm_ouput = self.sig(lstm_ouput)
+        lstm_output = self.sig(lstm_output)
 
         lstm_output = lstm_output.view(batch_size, -1, self.output_size)
 
-        ouput = lstm_out[:, -1]
+        output = lstm_output[:, -1]
 
-        return output. hidden
+        return output, hidden
 
 
     def init_hidden(self, batch_size):
@@ -64,7 +65,7 @@ class LSTM(nn.Module):
 
         else:
 
-            hideen =  (W, W)
+            hidden =  (W, W)
 
 
         return hidden
