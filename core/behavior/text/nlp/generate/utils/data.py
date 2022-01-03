@@ -75,6 +75,3 @@ def convertManyToOne(texts: list) -> str:
         text += load_data(txt)
 
     return text
-
-
-
