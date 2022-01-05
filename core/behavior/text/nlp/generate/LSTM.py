@@ -61,11 +61,11 @@ class LSTM(nn.Module):
 
         if self.train_on_gpu:
 
-            hidden = ( W.cuda(), W.cuda())
+            hidden = ( W.cuda(), W.cuda() )
 
         else:
 
-            hidden =  (W, W)
+            hidden =  ( W, W )
 
 
         return hidden
